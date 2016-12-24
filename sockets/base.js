@@ -22,4 +22,17 @@ export default (io) => {
     });
   });
 
+  io.set("origins", "*:*");
+
+  var currentPrice = 99;
+
+  io.on('connection', function (socket) {
+    socket.emit('priceUpdate',currentPrice);
+    socket.on('bid', function (data) {
+      currentPrice = parseInt(data);
+      socket.emit('priceUpdate',currentPrice);
+      socket.broadcast.emit('priceUpdate',currentPrice);
+    });
+  });
+
 };

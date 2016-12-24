@@ -1,4 +1,4 @@
-import {Component, View} from 'angular2/core';
+import {Component} from 'angular2/core';
 
 import {AccordionGroup} from './accordion-group.component';
 
@@ -6,10 +6,9 @@ import {AccordionGroup} from './accordion-group.component';
   selector: 'accordion, [accordion]',
   host: {
     'class': 'panel-group'
-  }
-})
-@View({
+  },
   template: '<ng-content></ng-content>'
+
 })
 export class Accordion {
   private groups: Array<AccordionGroup> = [];

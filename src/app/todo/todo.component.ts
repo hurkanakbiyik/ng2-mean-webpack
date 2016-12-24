@@ -1,4 +1,4 @@
-import {Component, View} from 'angular2/core';
+import {Component} from 'angular2/core';
 
 import {TodoService} from './todo.service';
 
@@ -14,10 +14,8 @@ import {NgFor} from 'angular2/common';
     // HTML tag for specifying this component
     selector: 'todo',
     // Let Angular 2 know about `Http` and `TodoService`
-    providers: [...HTTP_PROVIDERS, TodoService]
-})
-@View({
     template: require('./todo.html'),
+    providers: [...HTTP_PROVIDERS, TodoService]
 })
 export class Todo {
 
@@ -25,6 +23,10 @@ export class Todo {
   todoData = {
     text: ''
   };
+
+  price: number = 0.0;
+  socket = null;
+  bidValue = '';
 
   private todos: Array<Todo> = [];
 
@@ -41,6 +43,17 @@ export class Todo {
             // Reset `todo` input
             this.todoData.text = '';
         });
+/*
+    this.socket = io('http://localhost:8080');
+    this.socket.on('priceUpdate', function(data){
+      this.price = data;
+    }.bind(this));
+*/
+  }
+
+  bid(){
+    this.socket.emit('bid', this.bidValue);
+    this.bidValue = '';
   }
 
   createTodo() {
