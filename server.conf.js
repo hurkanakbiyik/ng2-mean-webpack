@@ -37,6 +37,15 @@ let app = express();
 let server = http.createServer(app);
 // Integrate Socket.io
 let io = socketio.listen(server);
+
+io.on('connection', function (socket) {
+  console.log("here");
+  console.log(socket);
+  socket.emit('news', { hello: 'world' });
+  socket.on('my other event', function (data) {
+    console.log(data);
+  });
+});
 // Load Mongoose for MongoDB interactions
 import mongoose from 'mongoose';
 // Log requests to the console (Express 4)

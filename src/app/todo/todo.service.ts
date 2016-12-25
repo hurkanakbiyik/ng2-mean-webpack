@@ -18,6 +18,16 @@ export class TodoService {
   // `Http` parameter
   constructor(public http:Http) {
 
+    var socket = require('socket.io-client')('http://localhost:8080');
+    socket.on('connect', function(){
+      console.log("test connect");
+    });
+    socket.on('news', function(data){
+      console.log("news");
+      console.log(data);
+    });
+    socket.on('disconnect', function(){});
+
   }
 
   getAll() {
